@@ -81,10 +81,8 @@ public class PostActivity extends Activity {
                         jsonArrayUsersPost.put(jsonObjectUsersPost);
 
                     }
-
                     adapterPostsResults = new RecyclerView_Adapter_view_users_post(PostActivity.this, jsonArrayUsersPost);
                     recyclerViewPostsResults.setAdapter(adapterPostsResults);
-
 
 
                 } catch (Exception e) {
@@ -117,12 +115,10 @@ public class PostActivity extends Activity {
         public class ViewHolder extends RecyclerView.ViewHolder {
             TextView title,body;
 
-
             public ViewHolder(View v) {
                 super(v);
                 title = v.findViewById(R.id.title);
                 body = itemView.findViewById(R.id.body);
-
 
             }
         }
@@ -141,9 +137,6 @@ public class PostActivity extends Activity {
                 Vholder.title.setText(tag.getString("title"));
                 Vholder.body.setText(tag.getString("body"));
 
-
-
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -154,9 +147,6 @@ public class PostActivity extends Activity {
             return userList.length();
         }
 
-
     }
-
-
 
 }

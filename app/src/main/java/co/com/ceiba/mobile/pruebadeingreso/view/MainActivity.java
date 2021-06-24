@@ -52,8 +52,6 @@ public class MainActivity extends Activity {
     private EditText editTextSearch;
     private SqliteRoutines sqliteRoutines;
     private BaseApplication app;
-    private Timer myTimer;
-    private JSONArray jsonObjUser = new JSONArray();
 
 
     @Override
@@ -85,9 +83,6 @@ public class MainActivity extends Activity {
                     @Override
                     public void afterTextChanged(final Editable s) {
                        String filtro = editTextSearch.getText().toString();
-
-                       Log.v("Palabra", filtro);
-
                         adapter.getFilter().filter(filtro);
                         adapter.notifyDataSetChanged();
 
@@ -250,7 +245,6 @@ public class MainActivity extends Activity {
 
                         Intent intent = new Intent(MainActivity.this, PostActivity.class);
                         intent.putExtra("user", (Serializable) users);
-
                         startActivity(intent);
                     });
                 }
@@ -270,13 +264,11 @@ public class MainActivity extends Activity {
         @Override
         public int getItemViewType(int position) {
 
-
                 if (tagsList.length() == 0){
                 return LEFT_CELL;
             }else {
                     return RIGHT_CELL;
                 }
-
 
         }
 
@@ -293,7 +285,6 @@ public class MainActivity extends Activity {
                             for (int index = 0; index < ArrayListUnits.length(); index++) {
                                 JSONObject tags = ArrayListUnits.getJSONObject(index);
                                 String name = tags.getString("name");
-                                Log.v("nombre", name);
                                 if (name.toLowerCase().contains(charSequenceString.toLowerCase())) {
                                     filteredList.put(tags);
                                     tagsList = filteredList;
@@ -301,16 +292,12 @@ public class MainActivity extends Activity {
                                     if(filteredList.length() == 0){
                                         tagsList = filteredList;
                                     }
-
-
                                 }
-
-                               // tagsList = filteredList;
                             }
-
                         }
                         FilterResults results = new FilterResults();
                         results.values = tagsList;
+
 
                         return results;
                     } catch (Exception e) {
@@ -322,7 +309,7 @@ public class MainActivity extends Activity {
                 protected void publishResults(CharSequence constraint, FilterResults results) {
                     tagsList = (JSONArray) results.values;
 
-                        notifyDataSetChanged();
+                      notifyDataSetChanged();
 
 
                 }
