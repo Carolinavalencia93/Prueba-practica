@@ -53,6 +53,7 @@ public class MainActivity extends Activity {
     private SqliteRoutines sqliteRoutines;
     private BaseApplication app;
     private Timer myTimer;
+    private JSONArray jsonObjUser = new JSONArray();
 
 
     @Override
@@ -65,6 +66,8 @@ public class MainActivity extends Activity {
         recyclerViewSearchResults = findViewById(R.id.recyclerViewSearchResults);
         recyclerViewSearchResults.setHasFixedSize(true);
         recyclerViewSearchResults.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewSearchResults.setAdapter(adapter);
+
         editTextSearch = findViewById(R.id.editTextSearch);
 
         editTextSearch.addTextChangedListener(
@@ -98,6 +101,7 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onStart() {
+        jsonArrayUsers = new JSONArray();
         JSONArray jsonObjUser = sqliteRoutines.readUsers();
        if(jsonObjUser.length() == 0){
             loadUser();
@@ -178,7 +182,7 @@ public class MainActivity extends Activity {
 
 
     public class RecyclerView_Adapter_view_users extends RecyclerView.Adapter<RecyclerView_Adapter_view_users.ViewHolder> implements Filterable {
-        private JSONArray tagsList;
+        private JSONArray tagsList = null;
         private JSONArray ArrayListUnits;
         private Context context;
 		LayoutInflater layoutInflater;
@@ -317,9 +321,9 @@ public class MainActivity extends Activity {
                 @Override
                 protected void publishResults(CharSequence constraint, FilterResults results) {
                     tagsList = (JSONArray) results.values;
-                    if (tagsList.length() > 0){
+
                         notifyDataSetChanged();
-                    }
+
 
                 }
             };
